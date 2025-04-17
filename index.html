@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Indian Crime Hotspot Map</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <script>
+    // Initialize map centered roughly on India
+    const map = L.map('map').setView([22.5937, 78.9629], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Sample Indian crime data points [lat, lng, intensity]
+    const crimeData = [
+      [28.679079, 77.069710, 0.9], // Delhi
+      [19.076090, 72.877426, 0.8], // Mumbai
+      [26.907524, 75.739639, 0.7], // Jaipur
+      [26.850000, 80.949997, 0.6], // Lucknow
+      [21.250000, 81.629997, 0.5], // Raipur
+      [23.344315, 85.296013, 0.6], // Ranchi
+      [20.296059, 85.824539, 0.7], // Bhubaneswar
+      [12.120000, 76.680000, 0.5], // Nanjangud
+      [16.994444, 73.300003, 0.4], // Ratnagiri
+      [30.172716, 77.299492, 0.6], // Jagadhri
+      [22.728392, 71.637077, 0.5], // Surendranagar
+      [9.383452, 76.574059, 0.4],  // Thiruvalla
+      [15.852792, 74.498703, 0.5], // Belgaum
+      [23.905445, 87.524620, 0.6], // Suri
+      [19.354979, 84.986732, 0.7], // Chatrapur
+      [22.572645, 88.363892, 0.8], // Kolkata (added)
+    ];
+
+    // Add heatmap layer
+    L.heatLayer(crimeData, {
+      radius: 25,
+      blur: 15,
+      maxZoom: 10,
+      max: 1.0,
+    }).addTo(map);
+  </script>
+</body>
+</html>
